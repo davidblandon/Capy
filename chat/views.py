@@ -5,12 +5,14 @@ from django.utils import timezone
 from .models import Chat
 import openai
 from cuentas.models import Student
+import os
+from dotenv import load_dotenv
 
 
-with open('chat/api_key.txt', 'r') as api_key:
-            key = api_key.read()
 
-openai.api_key = key.strip()
+load_dotenv()
+key = os.getenv("OPENAI_API_KEY")
+openai.api_key = key
 
 def chat(request, id_estudiante):
     student = Student.objects.get(id_estudiante=id_estudiante)
